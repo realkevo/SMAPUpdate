@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/getNameItem"
+            android:title="get name">
+        </item>
+        <item android:id="@+id/workIdItem"
+            android:title="get work id">
+        </item>
+        <item android:id="@+id/getStationItem"
+            android:title="get station">
+        </item>
+        <item android:id="@+id/AssessHistory"
+            android:title="Assessment history">
+        </item>
+        <item android:id="@+id/logOut"
+            android:title="Logout">
+        </item>
+
+
+
+
+    </group>
+
+</menu>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name ="blueBlack">#111f28</color>
+    <color name ="tanAccent">#e3cdb3</color>
+    <color name ="teal200">#FF03DAC5</color>
+    <color name ="middleBlue">#3BB9FF</color>
+    <color name ="deepSky">#00BFFF</color>
+    <color name ="canoFlower">#6495ED</color>
+    <color name ="darkGray">#3A3B3C</color>
+    <color name ="Black">#000000</color>
+
+
+
+
+
+
+
+</resources>

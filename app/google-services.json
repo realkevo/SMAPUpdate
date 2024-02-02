@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "749573206613",
+    "project_id": "smap-7e24c",
+    "storage_bucket": "smap-7e24c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749573206613:android:5adecc2972d32c58f9dadc",
+        "android_client_info": {
+          "package_name": "ke.co.smap"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgXOtAan40eSt80PGhFiTMmrjCC4WEDH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
