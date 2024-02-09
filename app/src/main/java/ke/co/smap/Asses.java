@@ -340,9 +340,9 @@ assessmentInfoPojoMap.put("details", detail);
 
                             //employee_consent.setImageURI(null);
                             Toast.makeText(Asses.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
-Intent intent = new Intent(Asses.this, AssessHistory.class);
+/*Intent intent = new Intent(Asses.this, AssessHistory.class);
 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-startActivity(intent);
+startActivity(intent);*/
                             //dialog.dismiss();
                             // progressBar.setVisibility(View.VISIBLE);
 
@@ -355,7 +355,7 @@ startActivity(intent);
                             long transfered = snapshot.getBytesTransferred()/1024;*/
 
                           //  pd.setMessage("uploaded: " + transfered + "/" + totalKb);
-                     double perc = (100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                     long perc = (100 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
                      pd.setMessage("Uploaded " +  perc + "%");
                         }
                     })
