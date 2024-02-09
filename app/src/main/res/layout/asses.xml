@@ -414,6 +414,7 @@
                     android:max="100"
                     android:visibility="invisible" />
 
+
                 <TextView
                     android:id="@+id/textview_employee_consent"
                     android:layout_width="wrap_content"
@@ -426,6 +427,21 @@
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textview_employee_consent"
+                    android:layout_centerInParent="true"
+                    android:layout_above="@id/cardImage"
+                    tools:progress="1"
+                    android:indeterminateOnly="false"
+                    android:visibility="invisible"
+                    android:max="100"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progress="75"
+                    android:layout_margin="5dp"
+                    android:progressDrawable="@drawable/circle"
+                    android:id="@+id/transferredBytesProgressBar"></ProgressBar>
 
 
                 <androidx.cardview.widget.CardView
@@ -470,6 +486,8 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </RelativeLayout>
+
+
 
 
             </RelativeLayout>

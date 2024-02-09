@@ -51,6 +51,7 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0-alpha02")
     implementation ("com.google.firebase:firebase-database:19.3.1")
 
+
     //8!tch *ss recyclerview dependencies!!..
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("androidx.legacy:legacy-support-v4:1.0.0")
@@ -63,6 +64,13 @@ dependencies {
 
 
     implementation ("com.squareup.picasso:picasso:2.8")
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
+
+    // Add the dependency for the Cloud Storage library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-storage")
 
     // Add the dependencies for the Crashlytics and Analytics libraries
     // When using the BoM, you don't specify versions in Firebase library dependencies

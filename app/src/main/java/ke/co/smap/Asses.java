@@ -1,22 +1,18 @@
 package ke.co.smap;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,25 +24,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -62,34 +57,38 @@ public class Asses extends AppCompatActivity {
 
     DatabaseReference reference;
     FirebaseDatabase database;
-    FirebaseStorage storage;
-    StorageReference storageReference;
+   private StorageReference storageReference;
+   private DatabaseReference databaseReference;
+    private Uri  uri;
 
 
+
+    //VIEWS VARIABLES
     DatePickerDialog datePickerDialog;
     private EditText work_id, details;
     private ImageView employee_consent;
-  private String //tarehe,shift, score, supervisor, points,
-  saveCurrentDate, saveCurrentTime,ImageUri,
-          assessment_Random_key;
-    private Uri uri;
-
-
     private TextView review_assesment, date,
             dispalyDateTv, shift_select, scoreTv,
             supervisorTv, display_selected_points;
     private Spinner select_shift_spinner, select_spinner;
+    ProgressBar progressBar;
+    //Dialog dialog;
+    //Toolbar toolbar;
+    private ImageButton menuBtn;
+    private FloatingActionButton floatingActionButton;
+  private String imageUrl, //tarehe,shift, score, supervisor, points,
+          saveCurrentDate, saveCurrentTime,
+          assessment_Random_key;
     private String[] shift_string = {" ", "day shift", "night shift"};
     private String[] points_string = {" ","1", "2", "4","5", "8", "16", "32"};
     private  final int GalleryPick = 1;
-    ProgressBar loadingBar;
-    Dialog dialog;
-    //Toolbar toolbar;
-    private ImageButton menuBtn;
-private FloatingActionButton floatingActionButton;
 
-//model
+
+//model variables
 private AssessmentInfoPojo assessmentInfoPojo;
+    ProgressDialog pd;
+    ProgressDialog dialog;
+
 
 
 
@@ -110,59 +109,27 @@ private AssessmentInfoPojo assessmentInfoPojo;
         display_selected_points = findViewById(R.id.points_displayTV);
         supervisorTv = findViewById(R.id.Display_assessor);
         scoreTv = findViewById(R.id.score_displayTV);
-
+        progressBar = findViewById(R.id.transferredBytesProgressBar);
         menuBtn = findViewById(R.id.menu_button);
         select_shift_spinner = findViewById(R.id.select_shift);
         floatingActionButton = findViewById(R.id.floating_action_bar);
         select_spinner = findViewById(R.id.select_points_spinner);
         review_assesment = findViewById(R.id.textview_review_assesment);
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference("assessmentConsents");
-
+  pd = new ProgressDialog(Asses.this);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("assessmentInfo");
 
 
         review_assesment.setOnClickListener(v -> {
-            String workId = work_id.getText().toString();
-            String detail = details.getText().toString();
-            String points = display_selected_points.getText().toString();
-            String tarehe = date.getText().toString();
-            String  shift = shift_select.getText().toString();
-            String  score = scoreTv.getText().toString();
-            String supervisor = supervisorTv.getText().toString();
-
-            if (TextUtils.isEmpty(workId)) {
-                work_id.setError("Please enter work id");
-                work_id.requestFocus();
-                return;
-            }
-            if (TextUtils.isEmpty(detail)) {
-                details.setError("Please enter details");
-                details.requestFocus();
-                return;
-            }
-            if (TextUtils.isEmpty(points)) {
-                display_selected_points.setError("Please select deductible points from dropdown");
-                display_selected_points.requestFocus();
-                return;
-            }
-            if (TextUtils.isEmpty(tarehe)) {
-                date.setError("Please select date");
-                date.requestFocus();
-                return;
-            }
 
 
-            if (TextUtils.isEmpty(shift)) {
-                shift_select.setError("Please select night or day shift");
-                shift_select.requestFocus();
-            } else {
-
-                //uploadImage();
-              uploadData();
-
+               if (uri != null){
+            uploadData();
+               }
+            else {
+                Toast.makeText(Asses.this, "please select image", Toast.LENGTH_SHORT).show();
+           employee_consent.requestFocus();
             }
         });
 
@@ -191,13 +158,17 @@ private AssessmentInfoPojo assessmentInfoPojo;
 
 
 
-            Intent gallerIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent gallerIntent = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(gallerIntent,GalleryPick);
         });
 
            /* Intent photoPicker = new Intent(Intent.ACTION_PICK);
             photoPicker.setType("image/*");
             ActivityResultLauncher.launch(photoPicker);*/
+
+
+        //SPINNER ADAPTER LISTENERS
 
         ArrayAdapter<String> adapter_points = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, points_string);
         adapter_points.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -213,7 +184,7 @@ private AssessmentInfoPojo assessmentInfoPojo;
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        //initialize adapater for spinner shift
+        //initialize adapter for spinner shift
         ArrayAdapter<String> adapter_shift = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shift_string);
         adapter_shift.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         select_shift_spinner.setAdapter(adapter_shift);
@@ -240,42 +211,95 @@ private AssessmentInfoPojo assessmentInfoPojo;
         String shift = shift_select.getText().toString();
         String score = scoreTv.getText().toString();
         String supervisor = supervisorTv.getText().toString();
+        imageUrl = uri.toString();
 
 
-        Calendar calendar = Calendar.getInstance();
+
+        if (TextUtils.isEmpty(workId)) {
+            work_id.setError("Please enter work id");
+            work_id.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(detail)) {
+            details.setError("Please enter details");
+            details.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(points)) {
+            display_selected_points.setError("Please select deductible points from dropdown");
+            display_selected_points.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(tarehe)) {
+            date.setError("Please select date");
+            date.requestFocus();
+            return;
+        }
+
+
+        if (TextUtils.isEmpty(shift)) {
+            shift_select.setError("Please select night or day shift");
+            shift_select.requestFocus();
+        } else {
+
+
+            Calendar calendar = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM, dd, yyyy");
         saveCurrentDate = currentDate.format(calendar.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(calendar.getTime());
         assessment_Random_key = saveCurrentDate + saveCurrentTime;
-        AlertDialog.Builder builder = new AlertDialog.Builder(
-                Asses.this);
-        builder.setCancelable(false);
-        builder.setView(R.layout.progress_bar_1);
-        dialog = builder.create();
-        dialog.show();
+       // AlertDialog.Builder builder = new AlertDialog.Builder(
+              //  Asses.this);
+       // builder.setCancelable(false);
+       // builder.setView(R.layout.progress_bar_1);
+       // dialog = builder.create();
+       // dialog.show();
+        //TODO create a progressbar showing uploaded total bits here
+
+pd.setTitle("Uploading files...");
+pd.setMessage("Please wait..");
+pd.show();
+
+Map<String, String> assessmentInfoPojoMap = new HashMap<>();
+assessmentInfoPojoMap.put("workId", workId);
+assessmentInfoPojoMap.put("details", detail);
+            assessmentInfoPojoMap.put("points", points);
+            assessmentInfoPojoMap.put("tarehe", saveCurrentDate);
+            assessmentInfoPojoMap.put("shift", shift);
+            assessmentInfoPojoMap.put("score", score);
+            assessmentInfoPojoMap.put("supervisor", supervisor);
+            assessmentInfoPojoMap.put("imageUrl", imageUrl);
+            FirebaseDatabase.getInstance().getReference("assessmentInfo")
+                    .child(assessment_Random_key).setValue(assessmentInfoPojoMap)
 
 
-        assessmentInfoPojo = new AssessmentInfoPojo(workId, detail,
+
+
+
+       /* assessmentInfoPojo = new AssessmentInfoPojo(workId, detail,
                  points, tarehe
-        , shift,score,supervisor, ImageUri);
+        , shift,score,supervisor, imageUrl);
         FirebaseDatabase.getInstance().getReference("assessmentInfo")
-                .child(assessment_Random_key).setValue(assessmentInfoPojo).addOnCompleteListener(
+                .child(assessment_Random_key).setValue(assessmentInfoPojo)*/
+
+                    .addOnCompleteListener(
                         new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
-                                if (task.isSuccessful()){
-                                    Toast.makeText(Asses.this, "data upload success", Toast.LENGTH_SHORT).show();
-                                }
+
                                 uploadImage();
-                                dialog.dismiss();
+                                //TODO Extend this dialog to after u=image is uploaded successfully
+                                //dialog.dismiss();
 
 
                             }
 
-                        }).addOnFailureListener(new OnFailureListener() {
+                        })
+                    .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
@@ -283,51 +307,113 @@ private AssessmentInfoPojo assessmentInfoPojo;
 
                     }
                 });
+    }}
 
-    }
+
+
     private void uploadImage() {
 
-       if(uri != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            SimpleDateFormat formater = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
+            Date now = new Date();
+            String fileName = formater.format(now);
+
+
+
+            storageReference = FirebaseStorage.getInstance()
+                    .getReference("images/" + fileName);
+            storageReference.putFile(uri).
+
+                    addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Asses.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+
+                            pd.dismiss();
+
+
+
+       /* Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+        imageUrl = downloadUrl.toString();
+        FirebaseDatabase.getInstance().getReference("assessmentImages");
+        storageReference.putFile(downloadUrl);*/
+
+
+                            //employee_consent.setImageURI(null);
+                            Toast.makeText(Asses.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+Intent intent = new Intent(Asses.this, AssessHistory.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+startActivity(intent);
+                            //dialog.dismiss();
+                            // progressBar.setVisibility(View.VISIBLE);
+
+
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                          /*  long totalKb = snapshot.getTotalByteCount()/1024;
+                            long transfered = snapshot.getBytesTransferred()/1024;*/
+
+                          //  pd.setMessage("uploaded: " + transfered + "/" + totalKb);
+                     double perc = (100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
+                     pd.setMessage("Uploaded " +  perc + "%");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(Asses.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+
                         }
                     });
+
+
         }
-    }
+
+
+
+
+
+      /* if (uri != null){
+            StorageReference filepth = FirebaseStorage.getInstance().getReference("consentImages").child(System.currentTimeMillis()
+                    + "." + getFileExtension(uri));
+            StorageTask uploadTask = filepth.putFile(uri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+                    if (!task.isSuccessful()){
+                        throw task.getException();
+                    }
+                    return filepth.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    Uri  downloadUrl = task.getResult();
+                    imageUrl = downloadUrl.toString();
+                    FirebaseDatabase.getInstance().getReference("assessmentPics")
+                            .child(assessment_Random_key).setValue(imageUrl);
+
+
+                }
+            });
+
+        }
+*/
+
+
+
     @Override
 
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
         ImageView imageView = findViewById(R.id.imageView_employee_consent);
 
+
         if (resultCode == RESULT_OK && reqCode == GalleryPick && data.getData()!=null
         && data!=null)
 
         {
+
 
             uri = data.getData();
             try {

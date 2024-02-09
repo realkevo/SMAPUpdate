@@ -7,7 +7,11 @@ public class AssessmentInfoPojo {
     }
 
     public AssessmentInfoPojo(String WORK_ID, String DETAILS, String POINTS,
-                              String SCORE, String SHIFT, String SUPERVISOR, String TAREHE, String IMAGE_URL) {
+                              String SCORE, String SHIFT, String SUPERVISOR,
+                              String TAREHE, String IMAGE_URL) {
+
+
+
         this.WORK_ID = WORK_ID;
         this.DETAILS = DETAILS;
         this.POINTS = POINTS;
