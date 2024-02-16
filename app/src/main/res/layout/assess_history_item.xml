@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/assessment_display_item"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_item_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:elevation="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentTop="true"
         android:backgroundTint="@color/blueBlack"
-        app:cardCornerRadius="20dp"
+        android:elevation="20dp"
+        app:cardCornerRadius="10dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.198" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -32,7 +34,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -42,7 +46,7 @@
                     android:layout_margin="5dp"
                     android:padding="5dp"
                     android:text="Date: "
-                    android:textColor="@color/white"
+                    android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -58,29 +62,72 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear2_item"
-                android:layout_width="391dp"
-                android:layout_height="104dp"
+                android:id="@+id/workIdLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/linear1_item"
-                android:layout_marginStart="7dp"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="7dp"
-                android:layout_marginBottom="7dp"
+                android:gravity="start"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/consent_item_tv"
-                    android:layout_width="141dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
+                <TextView
+                    android:id="@+id/work_id_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="10dp"
+
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:padding="5dp"
-                    android:src="@color/green"></ImageView>
+                    android:text="WORK ID: "
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/work_id_item_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+
+                    android:padding="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"></TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/detailsLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/workIdLinear"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/details_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="5dp"
+                    android:text="DETAILS :"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"></TextView>
 
                 <TextView
                     android:id="@+id/details_item_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_below="@id/details_item"
+                    android:layout_centerHorizontal="true"
                     android:padding="5dp"
                     android:text="details tv"
                     android:textColor="@color/white"
@@ -88,22 +135,24 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear3_item"
+                android:id="@+id/stationLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linear2_item"
-                android:layout_margin="5dp"
+                android:layout_below="@id/detailsLinear"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/station_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
                     android:padding="5dp"
-                    android:text="station :"
-
-                    android:textColor="@color/white"
+                    android:text="STATION :"
+                    android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -111,33 +160,33 @@
                     android:id="@+id/station_item_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/station_item"
                     android:padding="5dp"
                     android:text="station tv"
                     android:textColor="@color/white"
                     android:textSize="20sp"></TextView>
+
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear4_item"
+                android:id="@+id/supervisorLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linear3_item"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_below="@id/stationLinear"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/supervisor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
                     android:padding="5dp"
-                    android:text="assessed by:"
-
-                    android:textColor="@color/white"
+                    android:text="SUPERVISOR:"
+                    android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -145,7 +194,11 @@
                     android:id="@+id/supervisor_item_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@id/supervisor"
                     android:padding="5dp"
                     android:text="supervisorIdTv"
                     android:textColor="@color/white"
@@ -153,25 +206,25 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear5_item"
+                android:id="@+id/pointsLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linear4_item"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_below="@id/supervisorLinear"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/points_deductible_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
-                    android:text="points deducted :"
+                    android:layout_alignParentStart="true"
 
-                    android:textColor="@color/white"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:text="POINTS :"
+                    android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -180,71 +233,61 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/points_deductible_item"
                     android:padding="5dp"
                     android:text="pointsTV"
                     android:textColor="@color/white"
                     android:textSize="20sp"></TextView>
             </LinearLayout>
 
+
             <LinearLayout
-                android:id="@+id/linear6_item"
+                android:id="@+id/shiftLinear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linear5_item"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_below="@id/pointsLinear"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/work_id_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:padding="5dp"
-                    android:text="work Id: "
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/work_id_item_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:padding="5dp"
-                    android:text="work Id tv"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"></TextView>
                 <TextView
                     android:id="@+id/shift_id_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:padding="5dp"
-                    android:text="shift : "
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"></TextView>
-                <TextView
-                    android:id="@+id/shift_id_item_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_below="@id/work_id_item"
+                    android:layout_alignParentStart="true"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
+
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
-                    android:text="shift Id tv"
+                    android:text="SHIFT : "
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/shift_item_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="shift tv"
                     android:textColor="@color/white"
                     android:textSize="20sp"></TextView>
             </LinearLayout>
+
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DELETE"
+        android:elevation="15dp"
+        android:padding="07dp"
+        android:background="@color/blueBlack"
+        android:textStyle="bold"
+        android:layout_below="@id/cardView_item_tv"
+        android:textColor="@color/red"
+android:layout_centerHorizontal="true"
+        android:textSize="30sp"></TextView>
+</RelativeLayout>

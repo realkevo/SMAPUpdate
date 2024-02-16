@@ -2,6 +2,7 @@ package ke.co.smap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,14 +11,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.EventListener;
 import java.util.List;
+
+import ke.co.smap.model.AssessmentInfoPojo;
 
 
 public class AssessHistory extends AppCompatActivity {
@@ -25,10 +34,11 @@ public class AssessHistory extends AppCompatActivity {
 
 
 
-   private RecyclerView AssessmentList;
-   RecyclerView.LayoutManager layoutManager;
-    private DatabaseReference databaseReference;
-
+   private RecyclerView AssessmentList_recyclerView;
+   DatabaseReference databaseReference;
+   ValueEventListener valueEventListener;
+    List<AssessmentInfoPojo> dataList;
+MyAdapter adapter;
     private TextView startDate, endDate, search;
     private DatePickerDialog datePickerDialog;
 
@@ -39,9 +49,39 @@ public class AssessHistory extends AppCompatActivity {
         setContentView(R.layout.activity_assess_history);
         startDate = findViewById(R.id.editTextText_start_dateTv);
         endDate = findViewById(R.id.editTextText_end_dateTv);
-     AssessmentList = findViewById(R.id.assessment_recyclerview);
-     AssessmentList.setLayoutManager( new LinearLayoutManager(this));
+        search = findViewById(R.id.search);
 
+
+     AssessmentList_recyclerView = findViewById(R.id.assessment_recyclerview);
+     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AssessHistory.this);
+     AssessmentList_recyclerView.setLayoutManager(linearLayoutManager);
+
+/*GridLayoutManager gridLayoutManager = new GridLayoutManager(AssessHistory.this, 1);
+AssessmentList_recyclerView.setLayoutManager(gridLayoutManager);*/
+
+     dataList = new ArrayList<>();
+     adapter = new MyAdapter(AssessHistory.this, dataList);
+     AssessmentList_recyclerView.setAdapter(adapter);
+     databaseReference = FirebaseDatabase.getInstance().getReference("assessmentInfo");
+     valueEventListener =
+databaseReference.addValueEventListener(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        dataList.clear();
+        for (DataSnapshot itemSnapShot: snapshot.getChildren()){
+            AssessmentInfoPojo assessmentInfoPojo = itemSnapShot.getValue(AssessmentInfoPojo.class);
+            //HERE SET AND GET KEY dataclass.setkey(itemsnapshot.getKey());
+            dataList.add(assessmentInfoPojo);
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+
+    }
+});
 
      startDate.setOnClickListener(v -> {
          final Calendar c = Calendar.getInstance();
@@ -53,6 +93,14 @@ public class AssessHistory extends AppCompatActivity {
          );
          datePickerDialog.show();
 
+     });
+     search.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Toast.makeText(AssessHistory.this,
+                     "Yeah,baby! that is what i am talking about", Toast.LENGTH_SHORT).show();
+
+         }
      });
      endDate.setOnClickListener(v -> {
          final Calendar c = Calendar.getInstance();

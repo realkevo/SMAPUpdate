@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/blueBlack"
     android:layout_height="match_parent"
     tools:context=".AssessHistory">
 
@@ -22,15 +23,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-         android:layout_margin="5dp"
             android:elevation="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:orientation="horizontal">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_dates"
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/tanAccent"
-
-                app:cardCornerRadius="20dp"
+                android:backgroundTint="@color/white"
+                android:elevation="25dp"
+                android:layout_marginBottom="2dp"
+                app:cardCornerRadius="10dp"
                 android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -45,6 +48,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:maxLength="10"
+                        android:textColor="@color/blueBlack"
 
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
@@ -59,12 +63,15 @@
                         android:layout_alignParentEnd="true"
                         android:layout_margin="10dp"
                         android:hint="end date"
+                        android:textColor="@color/blueBlack"
+
                         android:inputType="datetime"
                         android:maxLength="10" />
                     <TextView
                         android:id="@+id/search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/blueBlack"
 
                         android:layout_centerInParent="true"
                         android:layout_below="@id/editTextText_start_dateTv"
@@ -94,11 +101,10 @@
             android:layout_below="@id/linearLayout_dates"
             android:layout_centerInParent="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            android:text="ASSESSMENT RECORD"
+            android:text="ASSESSMENT HISTORY"
             android:textSize="20sp"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -106,9 +112,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/assessment_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_height="500dp"
+        android:textColor="@color/white"
         android:background="@color/darkGray"
         app:layout_constraintTop_toBottomOf="@+id/relative7"
         tools:layout_editor_absoluteX="9dp" />
