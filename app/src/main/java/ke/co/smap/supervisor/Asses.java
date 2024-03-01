@@ -41,6 +41,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import ke.co.smap.R;
+import ke.co.smap.adapter.AssessAdapter;
 
 
 public class Asses extends AppCompatActivity {
@@ -75,6 +76,8 @@ public class Asses extends AppCompatActivity {
     private String saveCurrentDate;
     private String saveCurrentTime;
     private String assessment_Random_key;
+    private AssessAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

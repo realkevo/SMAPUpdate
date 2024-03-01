@@ -114,7 +114,7 @@ databaseReference.addValueEventListener(new ValueEventListener() {
          @Override
          public void onClick(View v) {
              //todo im[plemement the search method here
-             search();
+             //search();
              Toast.makeText(AssessHistory.this,
                      "Yeah,baby! that is what i am talking about", Toast.LENGTH_SHORT).show();
 
@@ -140,7 +140,7 @@ databaseReference.addValueEventListener(new ValueEventListener() {
 
 }
 //search method
-    private void search() {
+  /*  private void search() {
         search_query.addTextChangedListener(new TextWatcher() {
          @Override
          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -183,5 +183,5 @@ query.addListenerForSingleValueEvent(new ValueEventListener() {
     }
 });}});
 
- }
+ }*/
 }
