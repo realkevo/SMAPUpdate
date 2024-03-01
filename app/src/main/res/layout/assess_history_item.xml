@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/assessment_display_item"
     android:layout_height="wrap_content">
 
 
@@ -46,7 +45,7 @@
                     android:layout_margin="5dp"
                     android:padding="5dp"
                     android:text="Date: "
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -81,7 +80,7 @@
                     android:layout_marginBottom="10dp"
                     android:padding="5dp"
                     android:text="WORK ID: "
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -105,10 +104,10 @@
                 android:layout_below="@id/workIdLinear"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="19dp"
                 android:layout_marginEnd="5dp"
-                android:gravity="center"
                 android:layout_marginBottom="5dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -119,7 +118,7 @@
                     android:layout_centerHorizontal="true"
                     android:padding="5dp"
                     android:text="DETAILS :"
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"></TextView>
 
                 <TextView
@@ -152,7 +151,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
                     android:text="STATION :"
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -186,7 +185,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
                     android:text="SUPERVISOR:"
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -224,7 +223,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
                     android:text="POINTS :"
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -261,7 +260,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
                     android:text="SHIFT : "
-                    android:textColor="@color/red"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
@@ -275,19 +274,45 @@
                     android:textSize="20sp"></TextView>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/imageUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/shiftLinear"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/image_Url_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/work_id_item"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:padding="5dp"
+                    android:text="ImageUrl : "
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:id="@+id/image_Url_itemTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Url tv"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"></TextView>
+            </LinearLayout>
+
+
         </RelativeLayout>
 
+
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DELETE"
-        android:elevation="15dp"
-        android:padding="07dp"
-        android:background="@color/blueBlack"
-        android:textStyle="bold"
-        android:layout_below="@id/cardView_item_tv"
-        android:textColor="@color/red"
-android:layout_centerHorizontal="true"
-        android:textSize="30sp"></TextView>
+
+
 </RelativeLayout>
