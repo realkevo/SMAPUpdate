@@ -42,14 +42,14 @@ private List <AssessmentInfoPojo> dataList;
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
        // AssessmentInfoPojo assessmentInfoPojo = new AssessmentInfoPojo();
-
-        holder.detailWorkId.setText(dataList.get(position).getWORK_ID());
-        holder.detailImage.setText(dataList.get(position).getIMAGE_URL());
-        holder.detailDetails.setText(dataList.get(position).getDETAILS());
-        holder.detailPoints.setText(dataList.get(position).getPOINTS());
-        holder.detailShift.setText(dataList.get(position).getSHIFT());
-        holder.detailSupervisor.setText(dataList.get(position).getSUPERVISOR());
-       // holder.detailStation.setText(dataList.get(position).getStation);
+holder.detailDate.setText(dataList.get(position).getTarehe());
+        holder.detailWorkId.setText(dataList.get(position).getWorkId());
+        holder.detailImage.setText(dataList.get(position).getImageUrl());
+        holder.detailDetails.setText(dataList.get(position).getDetails());
+        holder.detailPoints.setText(dataList.get(position).getPoints());
+        holder.detailShift.setText(dataList.get(position).getShift());
+        holder.detailSupervisor.setText(dataList.get(position).getSupervisor());
+      holder.detailStation.setText(dataList.get(position).getStation());
 
 
     }
@@ -65,6 +65,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
      TextView detailWorkId, detailDate, detailDetails,
           //  detailStation,
             detailSupervisor, detailPoints,
+    detailStation,
              detailShift
               , detailImage;
 
@@ -74,9 +75,9 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
        // itemcardView = itemView.findViewById(R.id.cardView_item_tv);
         detailWorkId = itemView.findViewById(R.id.work_id_item_tv);
-       // detailDate = itemView.findViewById(R.id.date_item_tv);
+       detailDate = itemView.findViewById(R.id.date_item_tv);
         detailDetails = itemView.findViewById(R.id.details_item_tv);
-        //detailStation = itemView.findViewById(R.id.station_item_tv);
+        detailStation = itemView.findViewById(R.id.station_item_tv);
         detailSupervisor = itemView.findViewById(R.id.supervisor_item_tv);
         detailPoints = itemView.findViewById(R.id.points_item_tv);
         detailShift = itemView.findViewById(R.id.shift_item_tv);
