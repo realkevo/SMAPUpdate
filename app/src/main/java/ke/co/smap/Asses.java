@@ -58,7 +58,6 @@ public class Asses extends AppCompatActivity {
     DatabaseReference reference;
     FirebaseDatabase database;
    private StorageReference storageReference;
-   private DatabaseReference databaseReference;
     private Uri  uri;
 
 
@@ -67,27 +66,28 @@ public class Asses extends AppCompatActivity {
     DatePickerDialog datePickerDialog;
     private EditText work_id, details;
     private ImageView employee_consent;
-    private TextView review_assesment, date,
-            dispalyDateTv, shift_select, scoreTv,
-            supervisorTv, display_selected_points;
-    private Spinner select_shift_spinner, select_spinner;
+    private TextView review_assesment,
+             shift_select,
+            supervisorTv, display_selected_points, displayStation;
+    private Spinner select_shift_spinner, select_spinner, select_StationSpinner;
     ProgressBar progressBar;
     //Dialog dialog;
     //Toolbar toolbar;
-    private ImageButton menuBtn;
     private FloatingActionButton floatingActionButton;
-  private String imageUrl, //tarehe,shift, score, supervisor, points,
+  private String imageUrl,
           saveCurrentDate, saveCurrentTime,
           assessment_Random_key;
     private String[] shift_string = {" ", "day shift", "night shift"};
+    private String[] station_string = {" ","mlolongo", "syokimau",
+            "SGR","JKIA", "eastern Bypass", "Southern Bypass", "Capiro center", "haile sellasie" +
+            "The mall", "westy"};
+
     private String[] points_string = {" ","1", "2", "4","5", "8", "16", "32"};
     private  final int GalleryPick = 1;
 
 
 //model variables
-private AssessmentInfoPojo assessmentInfoPojo;
     ProgressDialog pd;
-    ProgressDialog dialog;
 
 
 
@@ -104,16 +104,15 @@ private AssessmentInfoPojo assessmentInfoPojo;
         details = findViewById(R.id.editText_details);
         employee_consent = findViewById(R.id.imageView_employee_consent);
         shift_select = findViewById(R.id.Display_selected_shift);
-        date = findViewById(R.id.date);
-        dispalyDateTv = findViewById(R.id.Display_assessment_date);
         display_selected_points = findViewById(R.id.points_displayTV);
         supervisorTv = findViewById(R.id.Display_assessor);
-        scoreTv = findViewById(R.id.score_displayTV);
         progressBar = findViewById(R.id.transferredBytesProgressBar);
-        menuBtn = findViewById(R.id.menu_button);
         select_shift_spinner = findViewById(R.id.select_shift);
         floatingActionButton = findViewById(R.id.floating_action_bar);
         select_spinner = findViewById(R.id.select_points_spinner);
+        select_StationSpinner = findViewById(R.id.station_spinner);
+        displayStation = findViewById(R.id.DisplayStation);
+
         review_assesment = findViewById(R.id.textview_review_assesment);
 
   pd = new ProgressDialog(Asses.this);
@@ -142,17 +141,7 @@ private AssessmentInfoPojo assessmentInfoPojo;
             }
         });
 
-        date.setOnClickListener(v -> {
-            final Calendar c = Calendar.getInstance();
-            int mYear = c.get(Calendar.YEAR);
-            int mMonth = c.get(Calendar.MONTH);
-            int mDay = c.get(Calendar.DAY_OF_MONTH);
-            datePickerDialog = new DatePickerDialog(Asses.this,
-                    (view, year, month, dayOfMonth) -> dispalyDateTv.setText(dayOfMonth + "/" + (month + 1) + "/" + year), mYear, mMonth, mDay
-            );
-            datePickerDialog.show();
 
-        });
         employee_consent.setOnClickListener(v -> {
             //Here call OpenGalleryMethod
 
@@ -173,6 +162,22 @@ private AssessmentInfoPojo assessmentInfoPojo;
         ArrayAdapter<String> adapter_points = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, points_string);
         adapter_points.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         select_spinner.setAdapter(adapter_points);
+        ArrayAdapter<String>adapter_stations = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, station_string);
+
+        adapter_stations.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       select_StationSpinner.setAdapter(adapter_stations);
+        select_StationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItem_station = station_string[position];
+                displayStation.setText(selectedItem_station);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         select_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -182,6 +187,7 @@ private AssessmentInfoPojo assessmentInfoPojo;
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(Asses.this, "Station has to be selected", Toast.LENGTH_SHORT).show();
             }
         });
         //initialize adapter for spinner shift
@@ -204,18 +210,17 @@ private AssessmentInfoPojo assessmentInfoPojo;
 
     public void uploadData(){
 
-        String workId = work_id.getText().toString();
+        String Id = work_id.getText().toString();
         String detail = details.getText().toString();
         String points = display_selected_points.getText().toString();
-        String tarehe = date.getText().toString();
         String shift = shift_select.getText().toString();
-        String score = scoreTv.getText().toString();
         String supervisor = supervisorTv.getText().toString();
+        String station = displayStation.getText().toString();
         imageUrl = uri.toString();
 
 
 
-        if (TextUtils.isEmpty(workId)) {
+        if (TextUtils.isEmpty(Id)) {
             work_id.setError("Please enter work id");
             work_id.requestFocus();
             return;
@@ -231,9 +236,10 @@ private AssessmentInfoPojo assessmentInfoPojo;
             display_selected_points.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(tarehe)) {
-            date.setError("Please select date");
-            date.requestFocus();
+
+        if (TextUtils.isEmpty(station)) {
+            displayStation.setError("Please select station from dropdown");
+            displayStation.requestFocus();
             return;
         }
 
@@ -264,14 +270,14 @@ pd.setMessage("Please wait..");
 pd.show();
 
 Map<String, String> assessmentInfoPojoMap = new HashMap<>();
-assessmentInfoPojoMap.put("workId", workId);
+assessmentInfoPojoMap.put("workId", Id);
 assessmentInfoPojoMap.put("details", detail);
             assessmentInfoPojoMap.put("points", points);
             assessmentInfoPojoMap.put("tarehe", saveCurrentDate);
             assessmentInfoPojoMap.put("shift", shift);
-            assessmentInfoPojoMap.put("score", score);
             assessmentInfoPojoMap.put("supervisor", supervisor);
             assessmentInfoPojoMap.put("imageUrl", imageUrl);
+            assessmentInfoPojoMap.put("station",station);
             FirebaseDatabase.getInstance().getReference("assessmentInfo")
                     .child(assessment_Random_key).setValue(assessmentInfoPojoMap)
 

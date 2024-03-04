@@ -1,42 +1,38 @@
 package ke.co.smap.model;
 
 public class AssessmentInfoPojo {
-   private String WORK_ID, DETAILS, POINTS, SCORE, SHIFT, SUPERVISOR,
-    TAREHE, IMAGE_URL;
+   private String workId, details, points,  SHIFT, SUPERVISOR,
+     imageUrl;
     public AssessmentInfoPojo() {
     }
 
     public AssessmentInfoPojo(String WORK_ID, String DETAILS, String POINTS,
-                              String SCORE, String SHIFT, String SUPERVISOR,
-                              String TAREHE, String IMAGE_URL) {
+                               String SHIFT, String SUPERVISOR,
+                              String IMAGE_URL) {
 
 
 
-        this.WORK_ID = WORK_ID;
-        this.DETAILS = DETAILS;
-        this.POINTS = POINTS;
-        this.SCORE = SCORE;
+        this.workId = WORK_ID;
+        this.details = DETAILS;
+        this.points = POINTS;
         this.SHIFT = SHIFT;
         this.SUPERVISOR = SUPERVISOR;
-        this.TAREHE = TAREHE;
-        this.IMAGE_URL = IMAGE_URL;
+        this.imageUrl = IMAGE_URL;
     }
 
     public String getWORK_ID() {
-        return WORK_ID;
+        return workId;
     }
 
     public String getDETAILS() {
-        return DETAILS;
+        return details;
     }
 
     public String getPOINTS() {
-        return POINTS;
+        return points;
     }
 
-    public String getSCORE() {
-        return SCORE;
-    }
+
 
     public String getSHIFT() {
         return SHIFT;
@@ -46,25 +42,20 @@ public class AssessmentInfoPojo {
         return SUPERVISOR;
     }
 
-    public String getTAREHE() {
-        return TAREHE;
-    }
 
     public String getIMAGE_URL() {
-        return IMAGE_URL;
+        return imageUrl;
     }
 
     @Override
     public String toString() {
         return "AssessmentInfoPojo{" +
-                "WORK_ID='" + WORK_ID + '\'' +
-                ", DETAILS='" + DETAILS + '\'' +
-                ", POINTS='" + POINTS + '\'' +
-                ", SCORE='" + SCORE + '\'' +
+                "WORK_ID='" + workId + '\'' +
+                ", DETAILS='" + details + '\'' +
+                ", POINTS='" + points + '\'' +
                 ", SHIFT='" + SHIFT + '\'' +
                 ", SUPERVISOR='" + SUPERVISOR + '\'' +
-                ", TAREHE='" + TAREHE + '\'' +
-                ", IMAGE_URL='" + IMAGE_URL + '\'' +
+                ", IMAGE_URL='" + imageUrl + '\'' +
                 '}';
     }
 }

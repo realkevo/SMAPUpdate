@@ -2,7 +2,7 @@
     <string name="app_name">SMAP</string>
     <string name="open">Open Navigation</string>
     <string name="close">Close Navigation</string>
-
+    <string name="assessment_details">Assessment Details</string>
 
 
 </resources>
