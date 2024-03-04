@@ -25,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ke.co.smap.model.AssessmentInfoPojo;
@@ -213,7 +215,14 @@ query.addListenerForSingleValueEvent(new ValueEventListener() {
      GridLayoutManager gridLayoutManager = new GridLayoutManager(
              AssessHistory.this, 1);
      AssessmentList_recyclerView.setLayoutManager(gridLayoutManager);
+    /* Collections.sort(dataList, new Comparator<AssessmentInfoPojo>() {
+         @Override
+         public int compare(AssessmentInfoPojo o1, AssessmentInfoPojo o2) {
 
+             return o1.tarehe.compareToIgnoreCase(o2.station);
+         }
+     });*/
+     //git log --onelineCollections.reverse(dataList);
      dataList = new ArrayList<>();
     adapter = new AssessAdapter(AssessHistory.this,
              dataList);

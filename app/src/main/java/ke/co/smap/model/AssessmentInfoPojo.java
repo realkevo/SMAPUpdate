@@ -1,8 +1,14 @@
 package ke.co.smap.model;
 
 public class AssessmentInfoPojo {
-   private String workId, details, points,  tarehe, shift, supervisor, station,
-     imageUrl;
+   private String workId;
+    private String details;
+    private String points;
+    public String tarehe;
+    private String shift;
+    private String supervisor;
+    public String station;
+    private String imageUrl;
 
     public AssessmentInfoPojo() {
     }
