@@ -160,7 +160,6 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/station_item"
                     android:padding="5dp"
-                    android:text="station tv"
                     android:textColor="@color/white"
                     android:textSize="20sp"></TextView>
 

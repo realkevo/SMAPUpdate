@@ -1,61 +1,98 @@
 package ke.co.smap.model;
 
 public class AssessmentInfoPojo {
-   private String workId, details, points,  SHIFT, SUPERVISOR,
+   private String workId, details, points,  tarehe, shift, supervisor, station,
      imageUrl;
+
     public AssessmentInfoPojo() {
     }
-
-    public AssessmentInfoPojo(String WORK_ID, String DETAILS, String POINTS,
-                               String SHIFT, String SUPERVISOR,
-                              String IMAGE_URL) {
-
-
-
-        this.workId = WORK_ID;
-        this.details = DETAILS;
-        this.points = POINTS;
-        this.SHIFT = SHIFT;
-        this.SUPERVISOR = SUPERVISOR;
-        this.imageUrl = IMAGE_URL;
+    public AssessmentInfoPojo(String workId, String details, String points, String tarehe, 
+                              String shift, String supervisor, String imageUrl, String station) {
+        this.workId = workId;
+        this.details = details;
+        this.points = points;
+        this.tarehe = tarehe;
+        this.shift = shift;
+        this.supervisor = supervisor;
+        this.imageUrl = imageUrl;
+        this.station = station;
     }
 
-    public String getWORK_ID() {
+    public String getWorkId() {
         return workId;
     }
 
-    public String getDETAILS() {
+    public void setWorkId(String workId) {
+        this.workId = workId;
+    }
+
+    public String getDetails() {
         return details;
     }
 
-    public String getPOINTS() {
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public String getPoints() {
         return points;
     }
 
-
-
-    public String getSHIFT() {
-        return SHIFT;
+    public void setPoints(String points) {
+        this.points = points;
     }
 
-    public String getSUPERVISOR() {
-        return SUPERVISOR;
+    public String getTarehe() {
+        return tarehe;
     }
 
+    public void setTarehe(String tarehe) {
+        this.tarehe = tarehe;
+    }
 
-    public String getIMAGE_URL() {
+    public String getShift() {
+        return shift;
+    }
+
+    public void setShift(String shift) {
+        this.shift = shift;
+    }
+
+    public String getSupervisor() {
+        return supervisor;
+    }
+
+    public void setSupervisor(String supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
     }
 
     @Override
     public String toString() {
         return "AssessmentInfoPojo{" +
-                "WORK_ID='" + workId + '\'' +
-                ", DETAILS='" + details + '\'' +
-                ", POINTS='" + points + '\'' +
-                ", SHIFT='" + SHIFT + '\'' +
-                ", SUPERVISOR='" + SUPERVISOR + '\'' +
-                ", IMAGE_URL='" + imageUrl + '\'' +
+                "workId='" + workId + '\'' +
+                ", details='" + details + '\'' +
+                ", points='" + points + '\'' +
+                ", tarehe='" + tarehe + '\'' +
+                ", shift='" + shift + '\'' +
+                ", supervisor='" + supervisor + '\'' +
+                ", station='" + station + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

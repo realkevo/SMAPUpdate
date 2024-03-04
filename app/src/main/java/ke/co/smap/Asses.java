@@ -345,7 +345,7 @@ assessmentInfoPojoMap.put("details", detail);
 
 
                             //employee_consent.setImageURI(null);
-                            Toast.makeText(Asses.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Asses.this, "uploaded successful", Toast.LENGTH_SHORT).show();
 /*Intent intent = new Intent(Asses.this, AssessHistory.class);
 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 startActivity(intent);*/
