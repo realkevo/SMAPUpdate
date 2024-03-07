@@ -52,7 +52,7 @@ holder.detailDate.setText(dataList.get(position).getTarehe());
         holder.detailPoints.setText(dataList.get(position).getPoints());
         holder.detailShift.setText(dataList.get(position).getShift());
         holder.detailSupervisor.setText(dataList.get(position).getSupervisor());
-      holder.detailStation.setText(dataList.get(position).getStation());
+        holder.detailStation.setText(dataList.get(position).getStation());
 
     /*  holder.detailUrlClick.setOnClickListener(new View.OnClickListener() {
           @Override

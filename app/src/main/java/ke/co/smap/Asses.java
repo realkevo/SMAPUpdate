@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,6 +48,7 @@ import java.util.Objects;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
@@ -116,11 +120,80 @@ public class Asses extends AppCompatActivity {
         review_assesment = findViewById(R.id.textview_review_assesment);
 
   pd = new ProgressDialog(Asses.this);
-        database = FirebaseDatabase.getInstance();
-        reference = database.getReference("assessmentInfo");
+       /* database = FirebaseDatabase.getInstance();
+        reference = database.getReference("assessmentInfo");*/
 
 
         review_assesment.setOnClickListener(v -> {
+           if (uri != null){
+                StorageReference filepth = FirebaseStorage.
+                        getInstance().getReference("consentImages")
+                        .child(System.currentTimeMillis()
+                        + "." + getFileExtension(uri));
+                StorageTask uploadTask = filepth.putFile(uri);
+                uploadTask.continueWithTask(new Continuation() {
+                    @Override
+                    public Object then(@NonNull Task task) throws Exception {
+                        if (!task.isSuccessful()){
+                            throw task.getException();
+                        }
+                        return filepth.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        Uri  downloadUrl = task.getResult();
+                        imageUrl = downloadUrl.toString();
+                       // String Id = work_id.getText().toString();
+                       // String detail = details.getText().toString();
+                      //  String points = display_selected_points.getText().toString();
+                       // String shift = shift_select.getText().toString();
+                    //    String supervisor = supervisorTv.getText().toString();
+                     //   String station = displayStation.getText().toString();
+                    //    pd.setTitle("Uploading files...");
+                    //    pd.setMessage("Please wait..");
+
+                        Map<String, String> assessmentInfoPojoMap = new HashMap<>();
+                     //   assessmentInfoPojoMap.put("workId", Id);
+                      //  assessmentInfoPojoMap.put("details", detail);
+                       // assessmentInfoPojoMap.put("points", points);
+                      //  assessmentInfoPojoMap.put("tarehe", saveCurrentDate);
+                      //  assessmentInfoPojoMap.put("shift", shift);
+                     //   assessmentInfoPojoMap.put("supervisor", supervisor);
+                      //  assessmentInfoPojoMap.put("station",station);*/
+                        assessmentInfoPojoMap.put("imageUrl", imageUrl);
+
+                        FirebaseDatabase.getInstance().getReference("assessmentInfo")
+                                .child(assessment_Random_key).setValue(assessmentInfoPojoMap)
+                                .addOnCompleteListener(
+                                        new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+pd.dismiss();
+                                                //   uploadDataAndImage(uri);
+                                                //TODO Extend this dialog to after u=image is uploaded successfully
+                                                //dialog.dismiss();
+                                            }
+
+                                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+
+                                        Toast.makeText(Asses.this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+                       /* FirebaseDatabase.getInstance().getReference("assessmentPics")
+                                .child(assessment_Random_key).setValue(imageUrl);
+pd.dismiss();*/
+
+                    }
+                });
+
+            }
+
 
 
                if (uri != null){
@@ -208,7 +281,14 @@ public class Asses extends AppCompatActivity {
 
     }
 
-    public void uploadData(){
+
+    private String getFileExtension(Uri mUri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return  mime.getExtensionFromMimeType(cr.getType(mUri));
+    }
+
+   public void uploadData(){
 
         String Id = work_id.getText().toString();
         String detail = details.getText().toString();
@@ -280,29 +360,18 @@ assessmentInfoPojoMap.put("details", detail);
             assessmentInfoPojoMap.put("station",station);
             FirebaseDatabase.getInstance().getReference("assessmentInfo")
                     .child(assessment_Random_key).setValue(assessmentInfoPojoMap)
-
-
-
-
-
-       /* assessmentInfoPojo = new AssessmentInfoPojo(workId, detail,
-                 points, tarehe
-        , shift,score,supervisor, imageUrl);
-        FirebaseDatabase.getInstance().getReference("assessmentInfo")
-                .child(assessment_Random_key).setValue(assessmentInfoPojo)*/
-
                     .addOnCompleteListener(
                         new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(Asses.this, "Uploaded successfully,view your assessment" +
+                                                "next screen", Toast.LENGTH_SHORT).show();
 
-
-                                uploadImage();
+pd.dismiss();
+                             //   uploadDataAndImage(uri);
                                 //TODO Extend this dialog to after u=image is uploaded successfully
-                                //dialog.dismiss();
-
-
-                            }
+                                pd.dismiss();
+                                }
 
                         })
                     .addOnFailureListener(new OnFailureListener() {
@@ -316,15 +385,67 @@ assessmentInfoPojoMap.put("details", detail);
     }}
 
 
+ /*   public void uploadDataAndImage(Uri imageuri) {
 
-    private void uploadImage() {
+        StorageReference filePath = FirebaseStorage.getInstance()
+                .getReference("images/").
+                child(System.currentTimeMillis() +
+                        "." + getFileExtension(imageuri));
+        filePath.putFile(imageuri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                //  AssessmentInfoPojo assessmentInfoPojo1 = new
+                                //   AssessmentInfoPojo(uri.toString(), points,
+                                //saveCurrentDate, shift,
+                                //supervisor, imageUrl, station, employeeId);
 
-            SimpleDateFormat formater = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
+                                Toast.makeText(Asses.this, "Uploaded successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        pd.dismiss();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        ProgressDialog pd = new ProgressDialog(Asses.this);
+                        pd.show();
+                        pd.setMessage("please wait..");
+                        pd.setMessage("uploading.."
+                        );
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Asses.this, "uploading failed!", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+                    }
+                });
+
+
+
+    }
+
+    private String getFileExtension(Uri mUri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return  mime.getExtensionFromMimeType(cr.getType(mUri));
+    }*/
+
+    
+
+
+   /* private void uploadImage() {
+
+            SimpleDateFormat formater = new 
+                    SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CANADA);
             Date now = new Date();
             String fileName = formater.format(now);
-
-
-
             storageReference = FirebaseStorage.getInstance()
                     .getReference("images/" + fileName);
             storageReference.putFile(uri).
@@ -338,17 +459,13 @@ assessmentInfoPojoMap.put("details", detail);
 
 
 
-       /* Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-        imageUrl = downloadUrl.toString();
-        FirebaseDatabase.getInstance().getReference("assessmentImages");
-        storageReference.putFile(downloadUrl);*/
 
 
                             //employee_consent.setImageURI(null);
-                            Toast.makeText(Asses.this, "uploaded successful", Toast.LENGTH_SHORT).show();
-/*Intent intent = new Intent(Asses.this, AssessHistory.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-startActivity(intent);*/
+                            Toast.makeText(Asses.this, "details uploaded successfully", Toast.LENGTH_SHORT).show();
+//Intent intent = new Intent(Asses.this, AssessHistory.class);
+//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//startActivity(intent);
                             //dialog.dismiss();
                             // progressBar.setVisibility(View.VISIBLE);
 
@@ -357,8 +474,8 @@ startActivity(intent);*/
                     }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                          /*  long totalKb = snapshot.getTotalByteCount()/1024;
-                            long transfered = snapshot.getBytesTransferred()/1024;*/
+                          // long totalKb = snapshot.getTotalByteCount()/1024;
+                           // long transfered = snapshot.getBytesTransferred()/1024;
 
                           //  pd.setMessage("uploaded: " + transfered + "/" + totalKb);
                      long perc = (100 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
@@ -373,38 +490,9 @@ startActivity(intent);*/
                     });
 
 
-        }
+        }*/
 
 
-
-
-
-      /* if (uri != null){
-            StorageReference filepth = FirebaseStorage.getInstance().getReference("consentImages").child(System.currentTimeMillis()
-                    + "." + getFileExtension(uri));
-            StorageTask uploadTask = filepth.putFile(uri);
-            uploadTask.continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if (!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    return filepth.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    Uri  downloadUrl = task.getResult();
-                    imageUrl = downloadUrl.toString();
-                    FirebaseDatabase.getInstance().getReference("assessmentPics")
-                            .child(assessment_Random_key).setValue(imageUrl);
-
-
-                }
-            });
-
-        }
-*/
 
 
 
