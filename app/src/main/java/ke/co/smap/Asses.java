@@ -122,7 +122,6 @@ public class Asses extends AppCompatActivity {
   pd = new ProgressDialog(Asses.this);
        /* database = FirebaseDatabase.getInstance();
         reference = database.getReference("assessmentInfo");*/
-//This is what i want to see
 
 
         review_assesment.setOnClickListener(v -> {
@@ -145,22 +144,24 @@ public class Asses extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Uri> task) {
                         Uri  downloadUrl = task.getResult();
                         imageUrl = downloadUrl.toString();
-                       // String Id = work_id.getText().toString();
-                       // String detail = details.getText().toString();
-                      //  String points = display_selected_points.getText().toString();
-                       // String shift = shift_select.getText().toString();
-                    //    String supervisor = supervisorTv.getText().toString();
-                     //   String station = displayStation.getText().toString();
-                    //    pd.setTitle("Uploading files...");
-                    //    pd.setMessage("Please wait..");
+                        String Id = work_id.getText().toString();
+                        String detail = details.getText().toString();
+                        String points = display_selected_points.getText().toString();
+                        String shift = shift_select.getText().toString();
+                        String supervisor = supervisorTv.getText().toString();
+                        String station = displayStation.getText().toString();
+                        pd.setTitle("Uploading files...");
+                        pd.setMessage("Please wait..");
+                        pd.show();
+
                         Map<String, String> assessmentInfoPojoMap = new HashMap<>();
-                     //   assessmentInfoPojoMap.put("workId", Id);
-                      //  assessmentInfoPojoMap.put("details", detail);
-                       // assessmentInfoPojoMap.put("points", points);
-                      //  assessmentInfoPojoMap.put("tarehe", saveCurrentDate);
-                      //  assessmentInfoPojoMap.put("shift", shift);
-                     //   assessmentInfoPojoMap.put("supervisor", supervisor);
-                      //  assessmentInfoPojoMap.put("station",station);*/
+                        assessmentInfoPojoMap.put("workId", Id);
+                        assessmentInfoPojoMap.put("details", detail);
+                        assessmentInfoPojoMap.put("points", points);
+                        assessmentInfoPojoMap.put("tarehe", saveCurrentDate);
+                        assessmentInfoPojoMap.put("shift", shift);
+                        assessmentInfoPojoMap.put("supervisor", supervisor);
+                        assessmentInfoPojoMap.put("station",station);
                         assessmentInfoPojoMap.put("imageUrl", imageUrl);
 
                         FirebaseDatabase.getInstance().getReference("assessmentInfo")
@@ -170,10 +171,10 @@ public class Asses extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
 
-pd.dismiss();
+
                                                 //   uploadDataAndImage(uri);
                                                 //TODO Extend this dialog to after u=image is uploaded successfully
-                                                //dialog.dismiss();
+                                                pd.dismiss();
                                             }
 
                                         })
