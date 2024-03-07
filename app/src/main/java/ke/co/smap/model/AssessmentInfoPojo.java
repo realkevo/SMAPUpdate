@@ -1,5 +1,10 @@
 package ke.co.smap.model;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
+import android.net.Uri;
+
 public class AssessmentInfoPojo {
    private String workId, details, points,  tarehe, shift, supervisor, station,
      imageUrl;
@@ -81,6 +86,7 @@ public class AssessmentInfoPojo {
     public void setStation(String station) {
         this.station = station;
     }
+
 
     @Override
     public String toString() {

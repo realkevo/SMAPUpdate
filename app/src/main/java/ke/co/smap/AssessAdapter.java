@@ -1,7 +1,11 @@
 package ke.co.smap;
 
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +22,13 @@ import ke.co.smap.model.AssessmentInfoPojo;
 public class AssessAdapter
 extends RecyclerView.Adapter<MyViewHolder>{
 
-private Context mcontext;
+private Context context;
 private List <AssessmentInfoPojo> dataList;
 
 
+
     public AssessAdapter(Context mcontext, List<AssessmentInfoPojo> dataList) {
-        this.mcontext = mcontext;
+        this.context = mcontext;
         this.dataList = dataList;
     }
 
@@ -51,13 +56,22 @@ holder.detailDate.setText(dataList.get(position).getTarehe());
         holder.detailSupervisor.setText(dataList.get(position).getSupervisor());
       holder.detailStation.setText(dataList.get(position).getStation());
 
+holder.clickUrl.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
+holder.detailImage.setVisibility(View.VISIBLE);
+        holder.clickUrl.setVisibility(View.INVISIBLE);
+
+    }
+});
     }
 
     @Override
     public int getItemCount() {
         return dataList.size();
     }
+
 
 }
 class MyViewHolder extends RecyclerView.ViewHolder{
@@ -68,8 +82,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
     detailStation,
              detailShift
               , detailImage;
-
-
+TextView clickUrl;
 
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -82,7 +95,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         detailPoints = itemView.findViewById(R.id.points_item_tv);
         detailShift = itemView.findViewById(R.id.shift_item_tv);
         detailImage = itemView.findViewById(R.id.image_Url_itemTV);
-
+        clickUrl = itemView.findViewById(R.id.image_Url_item);
 
 
     }

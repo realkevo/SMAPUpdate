@@ -272,7 +272,7 @@
                     android:textSize="20sp"></TextView>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/imageUrl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -283,28 +283,32 @@
                     android:id="@+id/image_Url_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/work_id_item"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
+                   android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:padding="5dp"
-                    android:text="ImageUrl : "
-                    android:textColor="@color/white"
+                    android:text="get image link "
+
+                    android:textColor="@color/green"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/image_Url_itemTV"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="7dp"
+                    android:autoLink="web"
                     android:padding="5dp"
-                    android:text="Url tv"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"></TextView>
-            </LinearLayout>
+                    android:textColor="@color/green"
+                    android:textSize="10sp"
+                    android:textStyle="italic"
+                    android:visibility="invisible"
+                    tools:layout_editor_absoluteY="122dp" />
+
+            </RelativeLayout>
 
 
         </RelativeLayout>

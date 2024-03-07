@@ -14,7 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SMAP"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ReviewImage"
+            android:exported="false" />
+        <activity
+            android:name=".ImageView"
+            android:exported="false"
+            android:label="@string/title_activity_image_view"
+            android:theme="@style/Theme.SMAP" />
         <activity
             android:name=".AssessHistory"
             android:exported="false" />
