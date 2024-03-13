@@ -7,24 +7,7 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context=".Asses">
-   <!-- <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/header"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-        </com.google.android.material.navigation.NavigationView>
-
-
-    </androidx.drawerlayout.widget.DrawerLayout>-->
 
 
 
@@ -70,8 +53,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="7dp"
                     android:layout_marginEnd="7dp"
-                    android:text="SMART MANAGEMENT"
-                    android:textColor="@color/white"
+                    android:text="SMART TERMINAL"
+                    android:textColor="@color/green"
                     android:textSize="24sp"
                     android:textStyle="bold"></TextView>
 
@@ -222,7 +205,7 @@
                                 android:layout_width="30dp"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentEnd="true"
+                                android:layout_toRightOf="@+id/select_points_spinner"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginRight="10dp"
@@ -233,13 +216,13 @@
 
                             <Spinner
                                 android:id="@+id/select_points_spinner"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="70dp"
+                                android:layout_height="37dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
 
-                                android:layout_toLeftOf="@id/points_displayTV">
+                                android:layout_toRightOf="@id/points">
 
                             </Spinner>
 
@@ -250,9 +233,9 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/white"
                                 android:layout_marginTop="15dp"
-
+                                android:layout_alignParentStart="true"
+android:layout_marginStart="20dp"
                                 android:layout_marginRight="10dp"
-                                android:layout_toLeftOf="@id/select_points_spinner"
                                 android:hint="Points deductible:"
                                 android:textSize="17sp"
                                 android:textStyle="bold"></TextView>
@@ -290,8 +273,8 @@
 
                             <Spinner
                                 android:id="@+id/select_shift"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="47dp"
+                                android:layout_height="43dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
@@ -313,12 +296,12 @@
 
                             <Spinner
                                 android:id="@+id/station_spinner"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="63dp"
+                                android:layout_height="41dp"
                                 android:layout_alignParentTop="true"
-                                android:layout_marginLeft="10dp"
+                                android:layout_marginLeft="14dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_toRightOf="@id/station" ></Spinner>
+                                android:layout_toRightOf="@id/station"></Spinner>
 
                             <TextView
                                 android:id="@+id/assessed_by"

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ke.co.smap.model.AssessmentInfoPojo;
@@ -18,12 +19,12 @@ import ke.co.smap.model.AssessmentInfoPojo;
 public class AssessAdapter
 extends RecyclerView.Adapter<MyViewHolder>{
 
-private Context mcontext;
+private Context context;
 private List <AssessmentInfoPojo> dataList;
 
 
     public AssessAdapter(Context mcontext, List<AssessmentInfoPojo> dataList) {
-        this.mcontext = mcontext;
+        this.context = mcontext;
         this.dataList = dataList;
     }
 
@@ -50,13 +51,24 @@ holder.detailDate.setText(dataList.get(position).getTarehe());
         holder.detailShift.setText(dataList.get(position).getShift());
         holder.detailSupervisor.setText(dataList.get(position).getSupervisor());
       holder.detailStation.setText(dataList.get(position).getStation());
+      holder.urlClick.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              holder.detailImage.setVisibility(View.VISIBLE);
+              holder.urlClick.setVisibility(View.INVISIBLE);
 
+          }
+      });
 
     }
 
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+    public void searchDataList (ArrayList<AssessmentInfoPojo> searchList){
+        dataList = searchList;
+        notifyDataSetChanged();
     }
 
 }
@@ -67,7 +79,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
             detailSupervisor, detailPoints,
     detailStation,
              detailShift
-              , detailImage;
+              , detailImage, urlClick;
 
 
 
@@ -82,6 +94,7 @@ class MyViewHolder extends RecyclerView.ViewHolder{
         detailPoints = itemView.findViewById(R.id.points_item_tv);
         detailShift = itemView.findViewById(R.id.shift_item_tv);
         detailImage = itemView.findViewById(R.id.image_Url_itemTV);
+        urlClick = itemView.findViewById(R.id.image_Url_item);
 
 
 

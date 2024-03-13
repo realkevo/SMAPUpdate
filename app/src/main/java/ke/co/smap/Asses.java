@@ -81,12 +81,12 @@ public class Asses extends AppCompatActivity {
   private String imageUrl,
           saveCurrentDate, saveCurrentTime,
           assessment_Random_key;
-    private String[] shift_string = {" ", "day shift", "night shift"};
-    private String[] station_string = {" ","mlolongo", "syokimau",
-            "SGR","JKIA", "eastern Bypass", "Southern Bypass", "Capiro center", "haile sellasie" +
-            "The mall", "westy"};
+    private String[] shift_string = {" ","day shift","night shift"};
+    private String[] station_string = {" ","Mlolongo", "Syokimau",
+            "SGR","JKIA", "Eastern Bypass", "Southern Bypass", "Capital Center", "Haile Selassie",
+            "The Mall", "Westlands"};
 
-    private String[] points_string = {" ","1", "2", "4","5", "8", "16", "32"};
+    private String[] points_string = {" ","5", "10", "20","30"};
     private  final int GalleryPick = 1;
 
 
