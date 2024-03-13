@@ -273,8 +273,8 @@ android:layout_marginStart="20dp"
 
                             <Spinner
                                 android:id="@+id/select_shift"
-                                android:layout_width="47dp"
-                                android:layout_height="43dp"
+                                android:layout_width="48dp"
+                                android:layout_height="40dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="10dp"
@@ -296,8 +296,8 @@ android:layout_marginStart="20dp"
 
                             <Spinner
                                 android:id="@+id/station_spinner"
-                                android:layout_width="63dp"
-                                android:layout_height="41dp"
+                                android:layout_width="60dp"
+                                android:layout_height="37dp"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginLeft="14dp"
                                 android:layout_marginTop="10dp"
@@ -428,20 +428,17 @@ android:layout_marginStart="20dp"
                                 android:elevation="10dp"
                                 app:cardCornerRadius="8dp">
 
-                                <ScrollView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+
 
                                     <ImageView
                                         android:id="@+id/imageView_employee_consent"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
                                         android:layout_gravity="center"
                                         android:scaleType="fitCenter"
                                         android:src="@drawable/baseline_menu_book_24"></ImageView>
 
 
-                                </ScrollView>
 
 
                             </androidx.cardview.widget.CardView>

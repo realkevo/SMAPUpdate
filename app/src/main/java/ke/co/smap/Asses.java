@@ -2,6 +2,7 @@ package ke.co.smap;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
@@ -92,7 +93,7 @@ public class Asses extends AppCompatActivity {
 
 //model variables
     ProgressDialog pd;
-
+CardView cardView;
 
 
 
@@ -116,6 +117,7 @@ public class Asses extends AppCompatActivity {
         select_spinner = findViewById(R.id.select_points_spinner);
         select_StationSpinner = findViewById(R.id.station_spinner);
         displayStation = findViewById(R.id.DisplayStation);
+        cardView = findViewById(R.id.cardImage);
 
         review_assesment = findViewById(R.id.textview_review_assesment);
 
@@ -365,10 +367,11 @@ assessmentInfoPojoMap.put("details", detail);
                         new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(Asses.this, "Uploaded successfully,view your assessment" +
-                                                "next screen", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Asses.this, "Uploaded " +
+                                        "successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Asses.this, AssessHistory.class);
 
-pd.dismiss();
+                                startActivity(intent);
                              //   uploadDataAndImage(uri);
                                 //TODO Extend this dialog to after u=image is uploaded successfully
                                 pd.dismiss();
