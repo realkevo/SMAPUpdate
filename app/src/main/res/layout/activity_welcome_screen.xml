@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/blueBlack"
+    android:layout_height="match_parent"
+    tools:context=".EveryOne.WelcomeScreen">
+    <TextView
+        android:id="@+id/textViewWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="WELCOME"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:layout_marginTop="140dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="126dp" />
+
+
+    <RelativeLayout
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/textViewWelcome"
+        android:layout_centerVertical="true"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="104dp">
+
+
+
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@mipmap/logo_foreground"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="174dp"
+            android:importantForAccessibility="no" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/smart_management"
+            android:textColor="@color/white"
+            android:layout_below="@+id/imageViewLogo"
+            android:textSize="36sp"
+            android:textStyle="italic"
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CreateAccountLoginLinkCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/banner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
+
+        <RelativeLayout
+            android:id="@+id/CreateAccountLoginLinkRelative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp">
+
+
+            <TextView
+                android:id="@+id/signUpPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/new_user_sign_up"
+                android:textColor="@color/green"
+                android:textSize="35sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/signUpPrompt"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:text="@string/login"
+                android:textColor="@color/blue"
+                android:textSize="36sp"
+                android:textStyle="bold">
+
+            </Button>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/resetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@+id/CreateAccountLoginLinkCardView"
+        android:text="@string/reset_password"
+        android:textColor="@color/green"
+android:layout_centerHorizontal="true"        android:layout_marginStart="15dp"
+        android:textSize="25sp"
+        android:textStyle="bold">
+
+    </TextView>
+    <TextView
+        android:id="@+id/proceedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@+id/resetPassword"
+        android:text="@string/proceed"
+        android:textColor="@color/green"
+        android:layout_centerHorizontal="true"        android:layout_marginStart="15dp"
+        android:textSize="25sp"
+        android:textStyle="bold">
+
+    </TextView>
+
+
+
+
+</RelativeLayout>

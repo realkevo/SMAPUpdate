@@ -1,4 +1,4 @@
-package ke.co.smap;
+package ke.co.smap.supervisor;
 
 
 import android.content.Context;
@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ke.co.smap.R;
 import ke.co.smap.model.AssessmentInfoPojo;
 
 public class AssessAdapter

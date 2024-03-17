@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/about"
 
-    tools:context=".AssessHistory">
+    tools:context=".EveryOne.AssessHistory">
 
 
     <androidx.appcompat.widget.SearchView
@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
+
         android:background="@drawable/about"
         android:textColor="@color/white"
         />

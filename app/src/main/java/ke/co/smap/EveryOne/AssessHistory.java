@@ -1,8 +1,9 @@
-package ke.co.smap;
+package ke.co.smap.EveryOne;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
 
@@ -17,9 +18,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import ke.co.smap.R;
 import ke.co.smap.model.AssessmentInfoPojo;
+import ke.co.smap.supervisor.AssessAdapter;
+import android.net.NetworkInfo;
 
 
 public class AssessHistory extends AppCompatActivity {
@@ -41,15 +46,19 @@ public class AssessHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
      super.onCreate(savedInstanceState);
      setContentView(R.layout.activity_assess_history);
+    // FirebaseDatabase.getInstance().setPersistenceCacheSizeBytes(10024);
+
 
      AssessmentList_recyclerView = findViewById(R.id.assessment_recyclerview);
 searchView = findViewById(R.id.searchViewV);
 searchView.clearFocus();
 
-     GridLayoutManager gridLayoutManager = new GridLayoutManager(
-             AssessHistory.this, 1);
-     AssessmentList_recyclerView.setLayoutManager(gridLayoutManager);
+   //  GridLayoutManager gridLayoutManager = new GridLayoutManager(
+       //      AssessHistory.this, 1);
+     //AssessmentList_recyclerView.setLayoutManager(gridLayoutManager);
 
+     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+     AssessmentList_recyclerView.setLayoutManager(linearLayoutManager);
      dataList = new ArrayList<>();
      adapter = new AssessAdapter(AssessHistory.this,
              dataList);
