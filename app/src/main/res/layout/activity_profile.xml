@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".supervisor.Profile">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SHOW USER PROFILE HERE"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:id="@+id/bottomNav"
+        android:layout_height="60dp"
+        android:background="@color/blueBlack"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:id="@+id/InsideBottomNavrelativeLayout"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent">
+
+
+            <ImageButton
+                android:id="@+id/ImageBtnAccount"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:background="@color/blueBlack"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/baseline_supervisor_account_24">
+
+            </ImageButton>
+            <ImageButton
+                android:id="@+id/ImageButtonHome"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="30dp"
+                android:background="@color/blueBlack"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/baseline_home_24">
+
+            </ImageButton>
+            <ImageButton
+                android:id="@+id/imageButtonAssessHistory"
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                android:layout_alignParentTop="true"
+                android:background="@color/blueBlack"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/baseline_library_add_check_24"
+
+                ></ImageButton>
+
+
+
+        </RelativeLayout>
+
+
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</RelativeLayout>

@@ -527,16 +527,6 @@
 
 
     </RelativeLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-android:layout_above="@+id/bottomNav"
-        android:background="@color/canoFlower"
-        android:src="@drawable/baseline_send_24">
-
-    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -577,7 +567,7 @@ android:layout_above="@+id/bottomNav"
 
             </ImageButton>
             <ImageButton
-                android:id="@+id/imageButtonFacilityHandOver"
+                android:id="@+id/imageButtonAssessHistory"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
 android:layout_alignParentEnd="true"

@@ -1,9 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EveryOne.Login">
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_above="@+id/LoginDetailsRelativeLayout"
+        android:layout_marginBottom="12dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:src="@mipmap/logo"
+        android:layout_centerHorizontal="true"
+
+        >
+
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/LoginDetailsRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewLoginAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:layout_centerVertical="true"
+        android:backgroundTint="@color/canoFlower"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:gravity="center"
+            android:id="@+id/wrapAll">
+            <EditText
+                android:id="@+id/editTextLoginWorkId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="@string/work_id"
+                android:inputType="number"
+                android:textColor="@color/Black"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editTextLoginPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextLoginWorkId"
+android:layout_margin="15dp"
+                android:ems="10"
+                android:gravity="center"
+                android:hint="PASSWORD"
+                android:inputType="number"
+                android:textColor="@color/Black"
+                android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/ButtonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LoginDetailsRelativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/canoFlower"
+        android:ems="10"
+        android:text="LOG IN"
+        android:textColor="@color/Black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

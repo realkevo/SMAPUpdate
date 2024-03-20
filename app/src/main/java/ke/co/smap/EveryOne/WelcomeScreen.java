@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import ke.co.smap.Admin.Register;
 import ke.co.smap.supervisor.Asses;
 import ke.co.smap.R;
 
@@ -38,7 +39,7 @@ public class WelcomeScreen extends AppCompatActivity {
         msignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeScreen.this, CreateAccount.class);
+                Intent intent = new Intent(WelcomeScreen.this, Register.class);
                 startActivity(intent);
             }
         });
