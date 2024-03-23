@@ -66,9 +66,8 @@ public class Register extends AppCompatActivity {
         mRegLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Asses.class);
+                Intent intent = new Intent(Register.this, Login.class);
                 startActivity(intent);
-                finish();
 
 
 
