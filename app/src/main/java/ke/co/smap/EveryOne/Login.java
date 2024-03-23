@@ -84,19 +84,20 @@ public class Login extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     mworkId.setError(null);
-                    String workId = mworkId.getText().toString();
 
 
                     String passwordDb = snapshot.child(userName).child("password").getValue(String.class);
                     if (!Objects.equals(passwordDb, password)){
                         mPassword.setError(null);
-                        Intent i = new Intent(Login.this, Asses.class);
-                        i.putExtra(" ", workId);
-                        startActivity(i);
+
                     }
                     else {
-                        mworkId.setError("user doesn't exist");
-                        progressDialog.dismiss();
+                        String workId = mworkId.getText().toString();
+
+                        Intent i = new Intent(Login.this, Asses.class);
+                        i.putExtra("workId", workId);
+                        startActivity(i);
+                        Toast.makeText(Login.this, "log in successful", Toast.LENGTH_SHORT).show();                        progressDialog.dismiss();
                     }
                 }
             }

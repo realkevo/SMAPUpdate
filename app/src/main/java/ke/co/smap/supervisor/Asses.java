@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -49,7 +52,7 @@ import ke.co.smap.EveryOne.AssessHistory;
 import ke.co.smap.R;
 
 
-public class Asses extends AppCompatActivity {
+public class Asses extends AppCompatActivity implements View.OnClickListener {
     private long pressedTime;
 
     //FIREBASE
@@ -79,7 +82,7 @@ public class Asses extends AppCompatActivity {
     private String imageUrl,
             saveCurrentDate, saveCurrentTime,
             assessment_Random_key;
-    private Button review_assesment, points, Fivepoints, Tenpoints, Twentypoints, Thirtypoints;
+    private Button mUpload, review_assesment, points, Fivepoints, Tenpoints, Twentypoints, Thirtypoints;
     private String[] shift_string = {" ", "day shift", "night shift"};
     private String[] station_string = {" ", "Mlolongo", "Syokimau",
             "SGR", "JKIA", "Eastern Bypass", "Southern Bypass", "Capital Center", "Haile Selassie",
@@ -117,13 +120,21 @@ public class Asses extends AppCompatActivity {
         select_StationSpinner = findViewById(R.id.station_spinner);
         displayStation = findViewById(R.id.DisplayStation);
         cardView = findViewById(R.id.cardImage);
-
+        mUpload = findViewById(R.id.textViewUpload);
         review_assesment = findViewById(R.id.textview_review_assesment);
 
-String supervisor = "workId: " + getIntent().getExtras().getString("workId");
+String supervisor = "" + getIntent().getExtras().getString("workId");
 supervisorTv.setText(supervisor);
        /* database = FirebaseDatabase.getInstance();
         reference = database.getReference("assessmentInfo");*/
+        mUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upload();
+                mUpload.setVisibility(View.INVISIBLE);
+
+            }
+        });
         points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +200,8 @@ supervisorTv.setText(supervisor);
             } else {
                 Toast.makeText(Asses.this, "please select image", Toast.LENGTH_SHORT).show();
                 employee_consent.requestFocus();
+
+
             }
         });
         MassesHistoryButton.setOnClickListener(new View.OnClickListener() {
@@ -201,11 +214,14 @@ supervisorTv.setText(supervisor);
 
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Asses.this, Profile.class);
+         public void onClick(View v) {
 
-                startActivity(intent);
+
+                // Intent intent = new Intent(Asses.this, Profile.class);
+
+                // startActivity(intent);
             }
+
         });
 
 
@@ -462,15 +478,18 @@ supervisorTv.setText(supervisor);
             displayStation.requestFocus();
             return;
         } else {
-            upload();
-        }
+
+mUpload.setVisibility(View.VISIBLE);        }
 
     }
 
     @Override
 
     public void onBackPressed() {
-        if (pressedTime + 5000 > System.currentTimeMillis()) {
+
+        //super.onBackPressed();
+
+       /* if (pressedTime + 5000 > System.currentTimeMillis()) {
 
 
             super.onBackPressed();
@@ -479,9 +498,13 @@ supervisorTv.setText(supervisor);
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast
                     .LENGTH_SHORT).show();
         }
-        pressedTime = System.currentTimeMillis();
+        pressedTime = System.currentTimeMillis();*/
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }
 
 

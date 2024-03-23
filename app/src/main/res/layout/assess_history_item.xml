@@ -14,7 +14,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_alignParentTop="true"
-        android:backgroundTint="@color/blueBlack"
+        android:backgroundTint="@color/canoFlower"
         android:elevation="20dp"
         app:cardCornerRadius="10dp"
 
@@ -290,7 +290,7 @@
                     android:layout_marginBottom="5dp"
                     android:padding="5dp"
                     android:text="get Image Link"
-                    android:textColor="@color/green"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -303,7 +303,7 @@
                     android:layout_centerHorizontal="true"
                     android:autoLink="web"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </RelativeLayout>
 
