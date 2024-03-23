@@ -1,18 +1,29 @@
 package ke.co.smap.Admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ke.co.smap.EveryOne.Login;
 import ke.co.smap.R;
@@ -24,7 +35,11 @@ public class Register extends AppCompatActivity {
             "The Mall", "Westlands"};
     private Spinner select_StationSpinner;
     private TextView displayStation;
+    private EditText mfullName, mworkId, mcompId,
+            mstation, mphone,mRank, mpassword;
+
     private long pressedTime;
+    ProgressDialog progressDialog;
 
     private Button mRegButton, mRegLoginBtn;
     @Override
@@ -37,12 +52,21 @@ public class Register extends AppCompatActivity {
         displayStation = findViewById(R.id.DisplayStation);
         mRegButton = findViewById(R.id.ButtonRegister);
         mRegLoginBtn = findViewById(R.id.ButtonLogin);
+        mfullName = findViewById(R.id.editTextTextFN);
+        mworkId = findViewById(R.id.editTextTextWorkId);
+        mcompId = findViewById(R.id.editTextTextCompId);
+        mstation = findViewById(R.id.editTextTextStation);
+        mphone = findViewById(R.id.editTextPhone);
+        mpassword = findViewById(R.id.editTextPassword);
+        mRank = findViewById(R.id.editTextRank);
+
+
 
 
         mRegLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Login.class);
+                Intent intent = new Intent(Register.this, Asses.class);
                 startActivity(intent);
                 finish();
 
@@ -56,9 +80,11 @@ public class Register extends AppCompatActivity {
         mRegButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Register.this, Asses.class);
-                startActivity(intent);
-                finish();
+
+                verifyInputs();
+               // Intent intent = new Intent(Register.this, Asses.class);
+                //startActivity(intent);
+                //finish();
 
             }
         });
@@ -83,6 +109,97 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
+    public void verifyInputs() {
+        String name = mfullName.getText().toString().trim();
+        String workId = mworkId.getText().toString().trim();
+        String companyId = mcompId.getText().toString().trim();
+        String station = mstation.getText().toString().trim();
+        String phone = mphone.getText().toString().trim();
+        String pass = mpassword.getText().toString().trim();
+        if (TextUtils.isEmpty(name)){
+            mfullName.requestFocus();
+            mfullName.setError("enter name");
+            return;
+        }
+        if (TextUtils.isEmpty(workId)){
+            mworkId.requestFocus();
+            mworkId.setError("enter work id");
+            return;
+
+        }  if (TextUtils.isEmpty(companyId)){
+            mcompId.requestFocus();
+            mcompId.setError("enter company id");
+            return;
+
+        }  if (TextUtils.isEmpty(station)){
+            mstation.requestFocus();
+            mstation.setError("enter station");
+            return;
+
+        }  if (TextUtils.isEmpty(phone)){
+            mphone.requestFocus();
+            mphone.setError("enter phone");
+            return;
+
+        }  if (TextUtils.isEmpty(pass)){
+            mpassword.requestFocus();
+            mpassword.setError("enter password");
+            return;
+
+            }
+        else {
+            RegisterUser();
+        }
+
+        }
+
+    private void RegisterUser() {
+        ProgressDialog pd = new ProgressDialog(this);
+        pd.show();
+        pd.setMessage("registering..");
+        pd.setTitle("registering user");
+        pd.setCanceledOnTouchOutside(false);
+        String name = mfullName.getText().toString().trim();
+        String workId = mworkId.getText().toString().trim();
+        String companyId = mcompId.getText().toString().trim();
+        String station = mstation.getText().toString().trim();
+        String phone = mphone.getText().toString().trim();
+        String pass = mpassword.getText().toString().trim();
+
+        Map<String, String> userMap = new HashMap<>();
+        userMap.put("name", name);
+        userMap.put("workId", workId);
+        userMap.put("companyId", companyId);
+        userMap.put("station", station);
+        userMap.put("phone", phone);
+        userMap.put("password", pass);
+
+        FirebaseDatabase.getInstance().getReference("Users")
+                .child(workId).setValue(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(Register.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
+                    Intent intent = new Intent(Register.this, Login.class);
+                    startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                   pd.dismiss();
+                    }
+                });
+
+    }
+
+
     @Override
 
     public void onBackPressed() {

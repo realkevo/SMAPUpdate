@@ -120,7 +120,8 @@ public class Asses extends AppCompatActivity {
 
         review_assesment = findViewById(R.id.textview_review_assesment);
 
-
+String supervisor = "workId: " + getIntent().getExtras().getString("workId");
+supervisorTv.setText(supervisor);
        /* database = FirebaseDatabase.getInstance();
         reference = database.getReference("assessmentInfo");*/
         points.setOnClickListener(new View.OnClickListener() {

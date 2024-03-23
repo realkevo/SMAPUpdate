@@ -15,7 +15,8 @@
         android:theme="@style/Theme.SMAP"
         tools:targetApi="31">
         <activity
-            android:name=".Admin.Register"
+            android:name=".EveryOne.Login"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,9 +30,7 @@
         <activity
             android:name=".supervisor.Supervisor"
             android:exported="false" />
-        <activity
-            android:name=".EveryOne.Login"
-            android:exported="false" />
+
         <activity
             android:name=".supervisor.Asses"
             android:exported="false" />
@@ -42,7 +41,8 @@
             android:name=".EveryOne.AssessHistory"
             android:exported="false" />
         <activity
-            android:name=".EveryOne.CreateAccount"
+            android:name=".Admin.Register"
+
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
