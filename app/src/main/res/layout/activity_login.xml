@@ -32,13 +32,12 @@ android:layout_above="@+id/LoginDetailsRelativeLayout"
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewLoginAccount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_margin="30dp"
         android:padding="20dp"
         android:layout_centerVertical="true"
-        android:backgroundTint="@color/canoFlower"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp">
         <RelativeLayout
@@ -48,14 +47,21 @@ android:layout_above="@+id/LoginDetailsRelativeLayout"
             android:padding="5dp"
             android:gravity="center"
             android:id="@+id/wrapAll">
+
             <EditText
                 android:id="@+id/editTextLoginWorkId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
                 android:ems="10"
+                android:maxLength="7"
+
                 android:gravity="center"
                 android:hint="@string/work_id"
+                android:background="@drawable/style"
                 android:inputType="number"
                 android:textColor="@color/Black"
                 android:textStyle="bold" />
@@ -66,6 +72,10 @@ android:layout_above="@+id/LoginDetailsRelativeLayout"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTextLoginWorkId"
 android:layout_margin="15dp"
+                android:maxLength="6"
+
+                android:background="@drawable/style"
+
                 android:ems="10"
                 android:gravity="center"
                 android:hint="PASSWORD"
@@ -94,7 +104,7 @@ android:layout_margin="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/canoFlower"
+        android:background="@drawable/style"
         android:ems="10"
         android:text="LOG IN"
         android:textColor="@color/Black"

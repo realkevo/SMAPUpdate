@@ -72,6 +72,7 @@ public class Login extends AppCompatActivity {
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
 
         progressDialog.setMessage("log in user..");
         progressDialog.setTitle("please wait..");
@@ -82,22 +83,32 @@ public class Login extends AppCompatActivity {
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()){
+                    mworkId.setError("user does not exist!");
+
+                   // Toast.makeText(Login.this, "user does not exist", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+                }
                 if (snapshot.exists()){
                     mworkId.setError(null);
 
 
                     String passwordDb = snapshot.child(userName).child("password").getValue(String.class);
                     if (!Objects.equals(passwordDb, password)){
-                        mPassword.setError(null);
+                        mPassword.setError("wrong password!");
+                    //    Toast.makeText(Login.this, "check credentials", Toast.LENGTH_SHORT).show();
 
+progressDialog.dismiss();
                     }
                     else {
                         String workId = mworkId.getText().toString();
+                        Toast.makeText(Login.this, "log in successful", Toast.LENGTH_SHORT).show();                        progressDialog.dismiss();
 
                         Intent i = new Intent(Login.this, Asses.class);
                         i.putExtra("workId", workId);
                         startActivity(i);
-                        Toast.makeText(Login.this, "log in successful", Toast.LENGTH_SHORT).show();                        progressDialog.dismiss();
+
+
                     }
                 }
             }

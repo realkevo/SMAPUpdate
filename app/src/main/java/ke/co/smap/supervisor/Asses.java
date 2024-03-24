@@ -154,6 +154,7 @@ supervisorTv.setText(supervisor);
                 Tenpoints.setBackgroundColor(Color.BLACK);
                 Twentypoints.setBackgroundColor(Color.BLACK);
                 Thirtypoints.setBackgroundColor(Color.BLACK);
+                Toast.makeText(Asses.this, "5 points selected", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -166,6 +167,8 @@ supervisorTv.setText(supervisor);
                 Tenpoints.setBackgroundColor(Color.WHITE);
                 Twentypoints.setBackgroundColor(Color.BLACK);
                 Thirtypoints.setBackgroundColor(Color.BLACK);
+                Toast.makeText(Asses.this, "10 points selected", Toast.LENGTH_SHORT).show();
+
 
 
             }
@@ -178,6 +181,8 @@ supervisorTv.setText(supervisor);
                 Thirtypoints.setBackgroundColor(Color.BLACK);
                 Fivepoints.setBackgroundColor(Color.BLACK);
                 Tenpoints.setBackgroundColor(Color.BLACK);
+                Toast.makeText(Asses.this, "20 points selected", Toast.LENGTH_SHORT).show();
+
 
 
             }
@@ -190,6 +195,8 @@ supervisorTv.setText(supervisor);
                 Twentypoints.setBackgroundColor(Color.BLACK);
                 Fivepoints.setBackgroundColor(Color.BLACK);
                 Tenpoints.setBackgroundColor(Color.BLACK);
+                Toast.makeText(Asses.this, "30 points selected", Toast.LENGTH_SHORT).show();
+
 
 
             }
