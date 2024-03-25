@@ -469,25 +469,13 @@
 
                             </androidx.cardview.widget.CardView>
 
-                            <Button
-                                android:id="@+id/textview_review_assesment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/cardImage"
-                                android:layout_centerInParent="true"
-                                android:layout_gravity="center"
-                                android:text="Start Assessment"
-                                android:background="@drawable/style"
-
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
 
                             <Button
                                 android:id="@+id/textViewUpload"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_centerHorizontal="true"
+                                android:layout_below="@id/cardImage"
+                                android:layout_centerInParent="true"
                                 android:layout_gravity="center"
 
                                 android:background="@drawable/style"
@@ -495,7 +483,21 @@
                                 android:textColor="@color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold"
-                                android:visibility="invisible" />
+                                android:visibility="invisible"/>
+                            <Button
+                                android:id="@+id/textview_review_assesment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/cardImage"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+
+                                android:background="@drawable/style"
+                                android:text="Start Assessment"
+                                android:textColor="@color/white"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                />
 
 
                         </RelativeLayout>

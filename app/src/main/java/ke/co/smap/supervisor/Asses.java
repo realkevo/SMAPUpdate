@@ -131,7 +131,6 @@ supervisorTv.setText(supervisor);
             @Override
             public void onClick(View v) {
                 upload();
-                mUpload.setVisibility(View.INVISIBLE);
 
             }
         });
@@ -486,7 +485,8 @@ supervisorTv.setText(supervisor);
             return;
         } else {
 
-mUpload.setVisibility(View.VISIBLE);        }
+mUpload.setVisibility(View.VISIBLE);
+        review_assesment.setVisibility(View.INVISIBLE);}
 
     }
 
