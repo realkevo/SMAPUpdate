@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.NetPermission;
 import java.util.Objects;
 
 import ke.co.smap.R;
@@ -29,8 +33,6 @@ public class Login extends AppCompatActivity {
     private Button mLoginBtn;
     private EditText mworkId, mPassword;
     private long pressedTime;
-
-
 
 
     @Override
@@ -47,21 +49,19 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String workId = mworkId.getText().toString();
                 String pass = mPassword.getText().toString();
-                if (TextUtils.isEmpty(workId)){
+                if (TextUtils.isEmpty(workId)) {
                     mworkId.setError("fill in work Id");
                     return;
                 }
-                if (TextUtils.isEmpty(pass)){
+                if (TextUtils.isEmpty(pass)) {
                     mPassword.setError("fill in password");
                     return;
+                } else {
+                    NetInformation();
+
+                    //  loginUser();
+
                 }
-
-                else {
-                    loginUser();
-
-                }
-
-
 
 
             }
@@ -69,6 +69,15 @@ public class Login extends AppCompatActivity {
     }
 
     private void loginUser() {
+      /*  if (checkNet()){
+            Toast.makeText(getApplicationContext(), "connected to internet", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "not connected to internet", Toast.LENGTH_SHORT).show();
+
+
+        }
+*/
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.show();
@@ -83,26 +92,26 @@ public class Login extends AppCompatActivity {
         checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()){
+                if (!snapshot.exists()) {
                     mworkId.setError("user does not exist!");
 
-                   // Toast.makeText(Login.this, "user does not exist", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
+                    // Toast.makeText(Login.this, "user does not exist", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     mworkId.setError(null);
 
 
                     String passwordDb = snapshot.child(userName).child("password").getValue(String.class);
-                    if (!Objects.equals(passwordDb, password)){
+                    if (!Objects.equals(passwordDb, password)) {
                         mPassword.setError("wrong password!");
-                    //    Toast.makeText(Login.this, "check credentials", Toast.LENGTH_SHORT).show();
+                        //    Toast.makeText(Login.this, "check credentials", Toast.LENGTH_SHORT).show();
 
-progressDialog.dismiss();
-                    }
-                    else {
+                        progressDialog.dismiss();
+                    } else {
                         String workId = mworkId.getText().toString();
-                        Toast.makeText(Login.this, "log in successful", Toast.LENGTH_SHORT).show();                        progressDialog.dismiss();
+                        Toast.makeText(Login.this, "log in successful", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
 
                         Intent i = new Intent(Login.this, Asses.class);
                         i.putExtra("workId", workId);
@@ -119,17 +128,53 @@ progressDialog.dismiss();
             }
         });
 
-    }   public void onBackPressed() {
+    }
+
+    public void onBackPressed() {
         if (pressedTime + 5000 > System.currentTimeMillis()) {
 
 
             super.onBackPressed();
             finish();
-        }
-        else {
+        } else {
             Toast.makeText(getBaseContext(), "Press back again to exit", Toast
                     .LENGTH_SHORT).show();
         }
         pressedTime = System.currentTimeMillis();
+    }
+
+    public boolean checkNet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(
+                Context.CONNECTIVITY_SERVICE
+        );
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo == null) {
+            return false;
+        }
+        if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+            Toast.makeText(Login.this, "wifi network connected", Toast.LENGTH_SHORT).show();
+        }
+        if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+            Toast.makeText(Login.this, "mobile network connected", Toast.LENGTH_SHORT).show();
+        }
+
+        return networkInfo.isConnected();
+    }
+
+
+
+
+
+    public void NetInformation(){
+        if (checkNet()){
+          //  Toast.makeText(getApplicationContext(), "connected to internet", Toast.LENGTH_SHORT).show();
+            loginUser();
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "please connect to internet", Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }
